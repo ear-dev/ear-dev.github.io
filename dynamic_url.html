@@ -3,10 +3,12 @@
   <body>
 <h1>Page to test dynamic URL</h1>
     <script type="text/javascript">
-      window.setTimeout(function () {},10000);
-      myimage = new Image();
-      myimage.src = 'https://raw.githubusercontent.com/bizzbyster/bizzbyster.github.io/master/images/zip-icon.png?rnd=' + Math.random();
-    </script>
+      function getImage(){
+        myimage = new Image();
+        myimage.src = 'https://raw.githubusercontent.com/bizzbyster/bizzbyster.github.io/master/images/zip-icon.png?rnd=' + Math.random();
+      }
+      window.setTimeout(getImage,5000);
+      </script>
     
   </body>
 </html>
