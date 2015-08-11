@@ -3,15 +3,7 @@
   <body>
 <h1>Page to test dynamic URL</h1>
     <script type="text/javascript">
-    function sleep(milliseconds) {
-      var start = new Date().getTime();
-      for (var i = 0; i < 1e7; i++) {
-        if ((new Date().getTime() - start) > milliseconds){
-          break;
-        }
-      }
-    }
-      sleep(5000)
+      window.setTimeout(function () {},5000);
       myimage = new Image();
       myimage.src = 'https://raw.githubusercontent.com/bizzbyster/bizzbyster.github.io/master/images/zip-icon.png?rnd=' + Math.random();
     </script>
