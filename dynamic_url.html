@@ -10,7 +10,18 @@
         myimage = new Image();
         myimage.src = 'https://raw.githubusercontent.com/bizzbyster/bizzbyster.github.io/master/images/zip-icon.png?rnd=' + Math.random();
       }
-      window.setTimeout(getImage,1500);
+      function sleep(milliseconds){
+        var start = new Date().getTime();
+        var keep_looping = true;
+        while (keep_looping) {
+          if ((new Date().getTime() - start)> milliseconds) {
+            keep_looping = false;
+          }
+        }
+      }
+      //window.setTimeout(getImage,1500);
+      sleep(1500);
+      getImage()
       </script>
     
   </body>
