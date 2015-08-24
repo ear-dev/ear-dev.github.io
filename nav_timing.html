@@ -10,7 +10,7 @@
       window.onload = function(){
         setTimeout(function(){
           var t = performance.timing;
-          alert(t.loadEventStart);
+          document.write(t.navigationStart);
         }, 0);
       }
     </script>
