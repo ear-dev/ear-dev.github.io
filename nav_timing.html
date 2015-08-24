@@ -7,12 +7,8 @@
 <h1>Nav Timing Test Page</h1>
     <img src='https://raw.githubusercontent.com/bizzbyster/bizzbyster.github.io/master/images/zip-icon.png'>
     <script>
-      window.onload = function(){
-        setTimeout(function(){
-          var t = performance.timing;
-          document.write(t.navigationStart);
-        }, 0);
-      }
+      var t = performance.timing;
+      document.write("Navigation Start is " + t.navigationStart);
     </script>
   </body>
 </html>
