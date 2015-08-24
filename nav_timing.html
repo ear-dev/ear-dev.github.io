@@ -1,16 +1,16 @@
 <!doctype html>
 <html>
   <head>
-  <title>Page with one image object</title>
+  <title>Nav Timing Test Page</title>
   </head>
   <body>
 <h1>Page with one image object</h1>
     <img src='https://raw.githubusercontent.com/bizzbyster/bizzbyster.github.io/master/images/zip-icon.png'>
     window.onload = function(){
-  setTimeout(function(){
-    var t = performance.timing;
-    alert(t.loadEventStart);
-  }, 0);
-}
+      setTimeout(function(){
+        var t = performance.timing;
+        alert(t.loadEventStart);
+      }, 0);
+    }
   </body>
 </html>
