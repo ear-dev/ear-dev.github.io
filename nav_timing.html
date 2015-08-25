@@ -7,8 +7,22 @@
 <h1>Nav Timing Test Page</h1>
     <img src='https://raw.githubusercontent.com/bizzbyster/bizzbyster.github.io/master/images/zip-icon.png'>
     <script>
-      var t = performance.timing;
-      document.write("Navigation Start is " + t.navigationStart);
+     var reqCount = 0;
+    var myReq = new XMLHttpRequest();
+    myReq.open('GET', url, true);
+    myReq.onload = function(e) {
+      window.performance.mark('mark_end_xhr');
+      reqCnt++;
+      window.performance.measure('measure_xhr_' + reqCnt, 'mark_start_xhr', 'mark_end_xhr');
+      var items = window.performance.getEntriesByType('measure');
+      for (var i = 0; i < items.length(); ++i) {
+        var req = items[i];
+        document.write('XHR ' + req.name + ' took ' + req.duration + 'ms');
+      }
+    }
+    window.performance.mark('mark_start_xhr');
+    myReq.send();
+    
     </script>
   </body>
 </html>
