@@ -3,5 +3,23 @@
   <body>
 <h1>Page with one image object</h1>
     <img src='https://raw.githubusercontent.com/bizzbyster/bizzbyster.github.io/master/images/zip-icon.png'>
+    <script type="text/javascript">
+      function getImage(){
+        myimage = new Image();
+        myimage.src = 'https://raw.githubusercontent.com/bizzbyster/bizzbyster.github.io/master/images/zip-icon.png?rnd=' + Math.random();
+      }
+      function sleep(milliseconds){
+        var start = new Date().getTime();
+        var keep_looping = true;
+        while (keep_looping) {
+          if ((new Date().getTime() - start)> milliseconds) {
+            keep_looping = false;
+          }
+        }
+      }
+      sleep(1500);
+      document.write("<img src='https://raw.githubusercontent.com/bizzbyster/bizzbyster.github.io/master/images/zip-icon.png?rnd=" +
+      Math.random() + "'>");
+      </script>
   </body>
 </html>
