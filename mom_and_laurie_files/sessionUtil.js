@@ -1,0 +1,1 @@
+(function(a){window.TRIPIT.util.SessionUtil={assertLoggedIn:function(b){if(b&&b.form_errors&&b.form_errors.length>0){a.each(b.form_errors,function(c,d){if(d.field_name==="login_email_address"){window.location.assign("/account/login?redirect_url="+encodeURIComponent(window.location.href))}})}}}}(jQuery));
