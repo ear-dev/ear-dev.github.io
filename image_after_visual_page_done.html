@@ -1,10 +1,11 @@
 <!doctype html>
 <html>
   <head>
-    <title>Dynamic URL Test Page</title>
+    <title>Late loading, out of viewport image test page</title>
   </head>
   <body>
-<h1>Page to test dynamic URL</h1>
+<img src='https://raw.githubusercontent.com/bizzbyster/bizzbyster.github.io/master/images/zip-icon.png?inViewPort=true'>
+<div style="height: 99999px; width: 100%" id="view_div"></div>
     <script type="text/javascript">
       function getImage(){
         myimage = new Image();
@@ -23,6 +24,8 @@
       document.write("<img src='https://raw.githubusercontent.com/bizzbyster/bizzbyster.github.io/master/images/zip-icon.png?rnd=" +
       Math.random() + "'>");
       </script>
+  </body>
+  </html>
     
   </body>
 </html>
