@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Test page for scheduler changes</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/styles.css">
+  </head>
+  <body>
+<img src='https://raw.githubusercontent.com/bizzbyster/bizzbyster.github.io/master/images/zip-icon.png?inViewPort=true'>
+<div style="height: 99999px; width: 100%" id="view_div"></div>
+    <script type="text/javascript">
+      function getImage(){
+        myimage = new Image();
+        myimage.src = 'https://raw.githubusercontent.com/bizzbyster/bizzbyster.github.io/master/images/zip-icon.png?rnd=' + Math.random();
+      }
+      function sleep(milliseconds){
+        var start = new Date().getTime();
+        var keep_looping = true;
+        while (keep_looping) {
+          if ((new Date().getTime() - start)> milliseconds) {
+            keep_looping = false;
+          }
+        }
+      }
+      sleep(1500);
+      document.write("<img src='https://raw.githubusercontent.com/bizzbyster/bizzbyster.github.io/master/images/zip-icon.png?rnd=" +
+      Math.random() + "&document_write_after_sleep=true'>");
+      </script>
+  </body>
+  </html>
+    
+  </body>
+</html>
