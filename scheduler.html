@@ -4,29 +4,12 @@
     <title>Test page for scheduler changes</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/styles.css">
   </head>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   <body>
 inviewport image here: <img src='https://raw.githubusercontent.com/bizzbyster/bizzbyster.github.io/master/images/zip-icon.png?inViewPort=true'>
-<div style="height: 99999px; width: 100%" id="view_div"></div>
-    <script type="text/javascript">
-      function getImage(){
-        myimage = new Image();
-        myimage.src = 'https://raw.githubusercontent.com/bizzbyster/bizzbyster.github.io/master/images/zip-icon.png?rnd=' + Math.random();
-      }
-      function sleep(milliseconds){
-        var start = new Date().getTime();
-        var keep_looping = true;
-        while (keep_looping) {
-          if ((new Date().getTime() - start)> milliseconds) {
-            keep_looping = false;
-          }
-        }
-      }
-      sleep(1500);
-      document.write("<img src='https://raw.githubusercontent.com/bizzbyster/bizzbyster.github.io/master/images/zip-icon.png?rnd=" +
-      Math.random() + "&document_write_after_sleep=true'>");
-      </script>
+<div style="height: 9999px; width: 100%" id="view_div"></div>
+outofviewport image here: <img src='https://raw.githubusercontent.com/bizzbyster/bizzbyster.github.io/master/images/zip-icon.png?inViewPort=true'>
   </body>
   </html>
-    
   </body>
 </html>
