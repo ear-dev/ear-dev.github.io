@@ -1,0 +1,8 @@
+<html>
+<head>
+<link rel="prerender" href="http://www.imdb.com/?thiswasprererendered=true">
+</head>
+<body>
+This page will just do a prerender of <a href="http://www.imdb.com/">http://www.imdb.com/</a>
+</body>
+</html>
