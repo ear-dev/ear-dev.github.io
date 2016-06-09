@@ -1,0 +1,25 @@
+
+<!doctype html>
+<html>
+  <head>
+    <title>Request small file every 2 seconds to test TCP latency</title>
+  </head>
+  <body>
+<h1>Request small file every 2 seconds to test TCP latency</h1>
+    <script type="text/javascript">
+      function sleep(milliseconds){
+        var start = new Date().getTime();
+        var keep_looping = true;
+        while (keep_looping) {
+          if ((new Date().getTime() - start)> milliseconds) {
+            keep_looping = false;
+          }
+        }
+      }
+      document.write("<script>sleep(2000);</script>");
+      document.write("<img src='y_200_a.png?req=2rnd=" + 
+      Math.random() + "'><img src='y_200_a.png?req=2rnd=" + 
+      Math.random() + "'>");
+    </script>
+  </body>
+</html>
