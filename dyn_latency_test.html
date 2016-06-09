@@ -16,10 +16,11 @@
           }
         }
       }
-      document.write("<script>sleep(2000);</script>");
-      document.write("<img src='y_200_a.png?req=2rnd=" + 
-      Math.random() + "'><img src='y_200_a.png?req=2rnd=" + 
-      Math.random() + "'>");
+      for (i=0; i < 10 ; i++) {
+        document.write("<script>sleep(2000);</script><img src='y_200_a.png?req=2&rnd=" + 
+        Math.random() + "'><img src='y_200_a.png?req=2rnd=" + 
+        Math.random() + "'>");
+      }
     </script>
   </body>
 </html>
