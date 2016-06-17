@@ -1,0 +1,55 @@
+
+
+<!doctype html>
+<html>
+  <head>
+    <title>Request images small files every 2 seconds to test TCP latency</title>
+  </head>
+  <body>
+  <h1>Request images small files every 2 seconds to test TCP latency in http or https</h1>
+    <script type="text/javascript">
+      function getUrlValue(varSearch){
+        var searchString = window.location.search.substring(1);
+        var variableArray = searchString.split('&');
+        for (i = 0; i < variableArray.length; i++) {
+          var keyValuePair = variableArray[i].split('=');
+          if (keyValuePair[0] == varSearch) {
+            return keyValuePair[1];
+          }
+        }
+      }
+    
+    </script>
+
+    <script>
+    numberOfImages = 3;
+    if (getUrlValue("images")) {
+      numberOfImages = getUrlValue("images");
+    }
+    https = "yes";
+    if (getUrlValue("https")) {
+      https = getUrlValue("https");
+    }
+    </script>
+
+<script type="text/javascript">
+      function sleep(milliseconds){
+        var start = new Date().getTime();
+        var keep_looping = true;
+        while (keep_looping) {
+          if ((new Date().getTime() - start)> milliseconds) {
+            keep_looping = false;
+          }
+        }
+      }
+      sleep(2000);
+      if (https == "yes") {
+        document.write("<img src='https://s.yimg.com/dh/ap/default/130909/y_200_a.png?req=1rnd=" + Math.random() + "'>");
+      }
+      else if (https == "no") {
+        document.write("<img src='http://l.yimg.com/av/curveball/ads/pr/RESIZE/82x82/643a0ed39be1c49502e9ac5a0b519dc7.jpeg?req=1rnd=" + Math.random() + "'>");
+      }
+</script>
+    <img src ="blueangels.jpg">
+  </body>
+</html>
