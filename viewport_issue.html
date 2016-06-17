@@ -42,13 +42,16 @@
           }
         }
       }
-      sleep(2000);
-      if (https == "yes") {
-        document.write("<img src='https://s.yimg.com/dh/ap/default/130909/y_200_a.png?req=1rnd=" + Math.random() + "'>");
-      }
-      else if (https == "no") {
-        document.write("<img src='http://l.yimg.com/av/curveball/ads/pr/RESIZE/82x82/643a0ed39be1c49502e9ac5a0b519dc7.jpeg?req=1rnd=" + Math.random() + "'>");
-      }
+</script>
+<script>
+  for (i = 0; i < numberOfImages; i++) {
+    if (https == "yes") {
+      document.write("<img src='https://s.yimg.com/dh/ap/default/130909/y_200_a.png?req=5&rnd=" + Math.random() + "'>");
+    }
+    else if (https == "no") {
+      document.write("<img src=http://l.yimg.com/av/curveball/ads/pr/RESIZE/82x82/643a0ed39be1c49502e9ac5a0b519dc7.jpeg?req=5&rnd=" + Math.random() + "'>");
+    }
+  }
 </script>
     <img src ="http://l.yimg.com/av/curveball/ads/pr/RESIZE/82x82/643a0ed39be1c49502e9ac5a0b519dc7.jpeg?static=true">
   </body>
