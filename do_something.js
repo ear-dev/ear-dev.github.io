@@ -1,3 +1,3 @@
 function doSomething() {
-  return 0;
+  return "hey!";
 }
