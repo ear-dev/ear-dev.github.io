@@ -1,3 +1,3 @@
-function doSomething() {
-  return "hey!";
+function doSomething(appendVal) {
+  return "hey!" + appendVal;
 }
