@@ -8,8 +8,21 @@
     inviewportDiv.appendChild(imageNode);
 })();
 
+function sleep(milliseconds){
+  var start = new Date().getTime();
+  var keep_looping = true;
+  while (keep_looping) {
+    if ((new Date().getTime() - start)> milliseconds) {
+      keep_looping = false;
+    }
+  }
+}
+
 function loadStuffLate(){
-  // fetch an out of viewport image late
+  // Sleep for 100 ms
+  sleep(100);
+
+  // Tetch an out of viewport image late
   var imageNode = document.createElement('img');
   imageNode.src = 'sparrow.png?outviewport-jsloaded';
 
