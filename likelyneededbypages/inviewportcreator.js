@@ -3,7 +3,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         var scriptLoader = document.createElement('script');
         scriptLoader.type = 'application/javascript';
-        scriptLoader.src = 'loadImage.js';
+        scriptLoader.src = 'loadAfterDCLEE.js';
 
         document.body.appendChild(scriptLoader);
     });
