@@ -6,8 +6,48 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="inviewportcreator.js"></script>
-        <link rel="stylesheet" type="text/css" href="divider.css" />
+        <link rel="stylesheet" type="text/css" href="neededByLayout.css" />
+        <script>
+        function sleep(milliseconds){
+            var start = new Date().getTime();
+            var keep_looping = true;
+            while (keep_looping) {
+                if ((new Date().getTime() - start)> milliseconds) {
+                  keep_looping = false;
+                }
+            }
+        }
+        // This code will run at DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', function() {
+            sleep(100);
+            var scriptLoader = document.createElement('script');
+            scriptLoader.type = 'application/javascript';
+            scriptLoader.src = 'inviewportCreatorBeforeDCLEE.js';
+            document.body.appendChild(scriptLoader);
+        });
+
+        // This code will run at onLoad
+        function loadStuffLate(){
+          sleep(200);
+
+          // Fetch an out of viewport image late
+          var imageNode = document.createElement('img');
+          imageNode.src = 'sparrow.png?outviewport-jsloaded';
+
+          var inviewportDiv = document.getElementById('not-inviewport-images');
+          inviewportDiv.appendChild(imageNode);
+
+          //Fetch a script late
+          var scriptLoader = document.createElement("script");
+          scriptLoader.setAttribute("type", "text/javascript");
+          scriptLoader.setAttribute("language", "JavaScript");
+          scriptLoader.setAttribute("src", "doesNothing.js?secondtime");
+          document.getElementsByTagName("head")[0].appendChild(scriptLoader);
+        }
+        </script>
+
+        <-- Do nothing script requested in the head, eventually we will not prefetch it-->
+        <script src="doesNothing.js"></script>
     </head>
     <body onload=loadStuffLate()>
         <div id="inviewport-images">
