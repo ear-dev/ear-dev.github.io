@@ -44,12 +44,13 @@
           scriptLoader.setAttribute("src", "doesNothing.js?secondtime");
           document.getElementsByTagName("head")[0].appendChild(scriptLoader);
         }
+        window.onload = loadStuffLate;
         </script>
 
         <!-- Do nothing script requested in the head, eventually we will not prefetch it-->
         <script src="doesNothing.js"></script>
     </head>
-    <body onload=loadStuffLate()>
+    <body>
         <div id="inviewport-images">
         <!-- dynamically generated inviewport image will go here -->
         </div>
