@@ -44,7 +44,9 @@
           scriptLoader.setAttribute("src", "doesNothing.js?secondtime");
           document.getElementsByTagName("head")[0].appendChild(scriptLoader);
         }
-        window.onload = loadStuffLate;
+        window.onload = function(){
+         setTimeout(loadStuffLate, 10000);
+        };
         </script>
 
         <!-- Do nothing script requested in the head, eventually we will not prefetch it-->
