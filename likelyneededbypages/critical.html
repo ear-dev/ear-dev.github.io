@@ -17,14 +17,13 @@
                 }
             }
         }
-        // This code will run at DOMContentLoaded
-        document.addEventListener('DOMContentLoaded', function() {
-            sleep(100);
+
+        function fetchViewportCreators() {
             var scriptLoader = document.createElement('script');
             scriptLoader.type = 'application/javascript';
             scriptLoader.src = 'inviewportCreatorBeforeDCLEE.js';
             document.body.appendChild(scriptLoader);
-        });
+        }
 
         // This code will run at onLoad
         function loadStuffLate(){
@@ -45,14 +44,15 @@
           document.getElementsByTagName("head")[0].appendChild(scriptLoader);
         }
         window.onload = function(){
-         setTimeout(loadStuffLate, 500);
+            // in 500 ms load other stuff
+            setTimeout(loadStuffLate, 500);
         };
         </script>
 
         <!-- Do nothing script requested in the head, eventually we will not prefetch it-->
         <script src="doesNothing.js"></script>
     </head>
-    <body>
+    <body onload=fetchViewportCreators()>
         <div id="inviewport-images">
         <!-- dynamically generated inviewport image will go here -->
         </div>
