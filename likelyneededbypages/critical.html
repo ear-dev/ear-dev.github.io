@@ -25,6 +25,11 @@
             document.body.appendChild(scriptLoader);
         }
 
+        // This code will run at DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(fetchViewportCreators, 100);
+        });
+
         // This code will run at onLoad
         function loadStuffLate(){
           sleep(200);
@@ -44,15 +49,14 @@
           document.getElementsByTagName("head")[0].appendChild(scriptLoader);
         }
         window.onload = function(){
-            // in 500 ms load other stuff
-            setTimeout(loadStuffLate, 500);
+         setTimeout(loadStuffLate, 500);
         };
         </script>
 
         <!-- Do nothing script requested in the head, eventually we will not prefetch it-->
         <script src="doesNothing.js"></script>
     </head>
-    <body onload=fetchViewportCreators()>
+    <body>
         <div id="inviewport-images">
         <!-- dynamically generated inviewport image will go here -->
         </div>
