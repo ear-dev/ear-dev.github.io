@@ -1,1 +1,3 @@
-var localDate = Date();
+function callToDateToGenerateBreadcrumb() {
+  var localDate = Date();
+}
