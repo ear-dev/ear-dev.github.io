@@ -20,7 +20,6 @@
         if(invocation) {
           invocation.open('GET', url, true);
           invocation.withCredentials = true;
-          invocation.onreadystatechange = handler;
           invocation.send(); 
         }
       }
