@@ -19,7 +19,7 @@
       function callOtherDomain(){
         if(invocation) {
           invocation.open('GET', url, true);
-          invocation.withCredentials = true;
+          invocation.withCredentials = false;
           invocation.send(); 
         }
       }
