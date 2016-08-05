@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <body>
+<h1>Page with one xmlhttprequest</h1>
+    <script type="text/javascript">
+      function sleep(milliseconds){
+        var start = new Date().getTime();
+        var keep_looping = true;
+        while (keep_looping) {
+          if ((new Date().getTime() - start)> milliseconds) {
+            keep_looping = false;
+          }
+        }
+      }
+      sleep(1000);
+
+      function callOtherDomain(allowStoredCredentials){
+        var invocation = new XMLHttpRequest();
+        var url = 'http://ec2-23-20-68-48.compute-1.amazonaws.com/cors/with_credentials.png';
+        if(invocation) {
+          local_url = url + '?allowStoredCredentials=' + allowStoredCredentials;
+          local_url = local_url + '&rand=' + Math.random();
+          invocation.open('GET', local_url, true);
+          invocation.withCredentials = allowStoredCredentials;
+          invocation.send();
+        }
+      }
+      callOtherDomain(true);
+      callOtherDomain(false);
+      </script>
+  </body>
+</html>
