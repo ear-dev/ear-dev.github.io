@@ -14,9 +14,21 @@
     </script>
 <h1>Calls to Date()</h1>
     <script type="text/javascript">
+    function sleep(milliseconds){
+        var start = new Date().getTime();
+        var keep_looping = true;
+        while (keep_looping) {
+          if ((new Date().getTime() - start)> milliseconds) {
+            keep_looping = false;
+          }
+        }
+      }
       document.write("<p>" + Date.now() + "</p>");
+      sleep(2);
       document.write("<p>" + Date.now() + "</p>");
+      sleep(2);
       document.write("<p>" + Date.now() + "</p>");
+      sleep(2);
       document.write("<p>" + Date.now() + "</p>");
     </script>
   </body>
