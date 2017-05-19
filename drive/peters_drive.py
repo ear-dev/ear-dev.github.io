@@ -27,7 +27,7 @@ user = 'peter'
 #binary_location= '/Users/pete/Git/src/out/Release/Sparrow.app/Contents/MacOS/Sparrow'
 binary_location = '/Applications/Sparrow.app/Contents/MacOS/Sparrow'
 if (sys.platform == 'win32'):
-  binary_location = 'C:\\Users\\viasat\\AppData\\Local\\Sparrow\\Application\\sparrow.exe'
+  binary_location = 'C:\\Users\\viasat\\AppData\\Local\\ViaSat\\Sparrow\\Application\\sparrow.exe'
 sitelist_url = 'http://bizzbyster.github.io/sitelists/https.txt'
 #sitelist_url = 'http://bizzbyster.github.io/sitelists/basic.txt'
 #sitelist_url = 'http://bizzbyster.github.io/sitelists/top5_from_top200.txt'
@@ -78,7 +78,7 @@ def visit_sites(service, total, test_settings):
   cache = 'warm'
   if test_settings['cold_cache'][test_settings['mode']]:
     # delete the user-data-dir
-    shutil.rmtree('./' + test_settings['mode'])
+    shutil.rmtree('./' + test_settings['mode'], ignore_errors=True)
     os.mkdir('./' + test_settings['mode'])
     cache = 'cold'
 
@@ -90,7 +90,7 @@ def visit_sites(service, total, test_settings):
   else:
     driver_options.add_argument('--sparrow-force-fieldtrial')
 
-  test_label = (user + '_' + test_settings['mode'] + '_' + cache + '_' +
+  test_label = (user + '-' + test_settings['mode'] + '-' + cache + '-' +
     test_settings['start_time'])
   print "Starting a pass through the list test_label=" + test_label
   driver_options.add_argument('--beer-test-label=' + test_label)
@@ -206,7 +206,7 @@ stats['total'] = 0
 # then chromiumlike warm cache
 # then repeat
 test_settings = {}
-test_settings['start_time'] = datetime.datetime.now().strftime('%Y-%m-%d_%H:%M:%S')
+test_settings['start_time'] = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
 test_settings['mode'] = 'sparrow'
 test_settings['cold_cache'] = {}
 test_settings['cold_cache']['chromiumlike'] = True
