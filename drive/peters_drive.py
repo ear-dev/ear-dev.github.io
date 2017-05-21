@@ -71,8 +71,6 @@ def start_remote(url, capabilities):
   return remote, beerstatus_tab, content_tab
 
 def visit_sites(service, total, test_settings):
-  # Get the sitelist
-  sitelist = urllib2.urlopen(sitelist_url).read().split("\n")
 
   # Delete user data dir if coldcache
   cache = 'warm'
@@ -99,6 +97,8 @@ def visit_sites(service, total, test_settings):
   driver_options.add_argument('--request-beer-ack')
   driver_options.add_argument('--hinting-scope=test' + user)
   driver_options.add_argument('--blackbox-on-beer')
+  driver_options.add_argument('--enable-crash-upload')
+  driver_options.add_argument('--omaha-server-url=https://omaha.overnight.ihs.viasat.io')
   driver_options.binary_location = binary_location
 
   capabilities = driver_options.to_capabilities()
@@ -109,11 +109,11 @@ def visit_sites(service, total, test_settings):
 
   # Used to verify that the current beer is unique and new
   beer_status_dict = {}
-  for site in sitelist:
+  for site in test_settings['site_list']:
     site = site.strip()
     beer_status_dict[site] = None
   stats['sites'] = 0
-  for site in sitelist:
+  for site in test_settings['site_list']:
     if not site:
       continue
 
@@ -211,6 +211,7 @@ test_settings['mode'] = 'sparrow'
 test_settings['cold_cache'] = {}
 test_settings['cold_cache']['chromiumlike'] = True
 test_settings['cold_cache']['sparrow'] = True
+test_settings['site_list'] = urllib2.urlopen(sitelist_url).read().split("\n")
 while True:
   visit_sites(service, stats, test_settings)
 
