@@ -16,6 +16,7 @@ import time
 import urllib2
 import datetime
 import os, sys, shutil
+from uuid import getnode as get_mac
 from selenium import webdriver
 import selenium.webdriver.chrome.service as service
 from selenium.webdriver.chrome.options import Options
@@ -89,8 +90,8 @@ def visit_sites(service, total, test_settings):
   else:
     driver_options.add_argument('--sparrow-force-fieldtrial')
 
-  test_label = (sys.platform + '-' + user + '-' + test_settings['mode'] + '-' + cache + '-' +
-    test_settings['start_time'])
+  test_label = (sys.platform + '-' + hex(get_mac()) + '-' + test_settings['mode'] +
+    '-' + cache + '-' + test_settings['start_time'])
   print "Starting a pass through the list test_label=" + test_label
   driver_options.add_argument('--beer-test-label=' + test_label)
   driver_options.add_argument('--user-data-dir=' +
