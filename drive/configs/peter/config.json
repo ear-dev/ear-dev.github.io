@@ -1,1 +1,12 @@
-yo!
+{
+    "sparrow_location": "/Applications/Sparrow.app/Contents/MacOS/Sparrow",
+    "sitelist_file": "ear_test_drive_sitelist.txt",
+    "log_file": "drive_log_file_long_list",
+    "log_level": "info",
+    "alternate_sparrow_chromiumlike": "yes",
+    "sparrow_switches": [
+        "--beer-test-label=ear_drive_test_comcast_mac",
+        "--enable-crash-upload",
+        "--request-beer-ack"
+    ]
+}
