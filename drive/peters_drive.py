@@ -77,7 +77,8 @@ def visit_sites(service, total, test_settings):
   if test_settings['cold_cache'][test_settings['mode']]:
     # delete the user-data-dir
     shutil.rmtree('./' + test_settings['mode'], ignore_errors=True)
-    os.mkdir('./' + test_settings['mode'])
+    if not os.path.exists('./' + test_settings['mode']):
+      os.mkdir( './' + test_settings['mode'], 0755 );
     cache = 'cold'
 
   # Set commandline options
@@ -88,7 +89,7 @@ def visit_sites(service, total, test_settings):
   else:
     driver_options.add_argument('--sparrow-force-fieldtrial')
 
-  test_label = (user + '-' + test_settings['mode'] + '-' + cache + '-' +
+  test_label = (sys.platform + '-' + user + '-' + test_settings['mode'] + '-' + cache + '-' +
     test_settings['start_time'])
   print "Starting a pass through the list test_label=" + test_label
   driver_options.add_argument('--beer-test-label=' + test_label)
