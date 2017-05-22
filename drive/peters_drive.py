@@ -9,7 +9,7 @@ How:
   And put Chromedriver (https://sites.google.com/a/chromium.org/chromedriver/downloads) on your PATH
   And change user, binary_location, and sitelist_url to your own if you do not want to use mine
     Note the mac default binary_location is /Applications/Sparrow.app/Contents/MacOS/Sparrow
-  run "python drive.py"
+  run "python drive.py" yo
 '''
 
 import time
