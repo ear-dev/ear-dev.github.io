@@ -1,0 +1,14 @@
+{
+    "sparrow_location": "/Applications/Sparrow.app/Contents/MacOS/Sparrow",
+    "sitelist_file": "https://github.com/ear-dev/bizzybyster.github.io/drive/configs/ear/sitelist.txt",
+    "log_file": "drive_log",
+    "log_level": "info",
+    "alternate_sparrow_chromiumlike": "true",
+    "test_label_prefix": "ear_drive_remote_config_test",
+    "sparrow_switches": [
+        "--enable-crash-upload",
+        "--request-beer-ack",
+        "--omaha-server-url=https://omaha.overnight.ihs.viasat.io"
+        ],
+    "chromium_version": "56.0.2924.11689",
+    "save_screenshots": "true"
