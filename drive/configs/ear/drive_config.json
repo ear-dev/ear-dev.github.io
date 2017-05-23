@@ -1,6 +1,6 @@
 {
     "sparrow_location": "/Applications/Sparrow.app/Contents/MacOS/Sparrow",
-    "sitelist_file": "http://bizzybyster.github.io/drive/configs/ear/sitelist.txt",
+    "sitelist_file": "http://ear-dev.github.io/drive/configs/ear/sitelist.txt",
     "log_file": "drive_log",
     "log_level": "info",
     "alternate_sparrow_chromiumlike": "true",
