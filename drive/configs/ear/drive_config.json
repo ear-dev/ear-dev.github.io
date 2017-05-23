@@ -3,7 +3,7 @@
     "sitelist_file": "http://ear-dev.github.io/drive/configs/ear/sitelist.txt",
     "log_file": "drive_log",
     "log_level": "info",
-    "alternate_sparrow_chromiumlike": "true",
+    "alternate_sparrow_chromiumlike": "false",
     "test_label_prefix": "ear_drive_remote_config_test",
     "sparrow_switches": [
         "--enable-crash-upload",
