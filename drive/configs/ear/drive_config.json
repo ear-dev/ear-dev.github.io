@@ -1,15 +1,20 @@
 {
-    "sparrow_location": "/Applications/Sparrow.app/Contents/MacOS/Sparrow",
-    "sitelist_file": "http://ear-dev.github.io/drive/configs/ear/sitelist.txt",
+    "sitelist_file": "http://bizzbyster.github.io/sitelists/top_sites_edited.txt",
     "log_file": "drive_log",
+    "log_to_console": true,
     "log_level": "info",
-    "alternate_sparrow_chromiumlike": "false",
-    "test_label_prefix": "ear_drive_remote_config_test",
-    "sparrow_switches": [
+    "alternate_sparrow_chromiumlike": true,
+    "alternate_warm_cold_cache": true,
+    "poll_download_speed": false,
+    "test_label_prefix": "test_mv_ublock",
+    "sparrow_only_switches": ["--sparrow-enable-experimental=onhover-preconnect-subresources"],
+    "common_switches": [
         "--enable-crash-upload",
         "--request-beer-ack",
-        "--omaha-server-url=https://omaha.overnight.ihs.viasat.io"
+        "--omaha-server-url=https://omaha.prod.ihs.viasat.io",
+        "--blackbox-on-beer",
+        "--hinting-scope=test-mv-ublock"
         ],
-    "chromium_version": "56.0.2924.11689",
-    "save_screenshots": "true"
+    "save_screenshots": false,
+    "ublock_path": "ublock_origin.crx"
 }
