@@ -15,5 +15,6 @@
         "--blackbox-on-beer",
         "--hinting-scope=test-mv-ublock"
         ],
-    "save_screenshots": false
+    "save_screenshots": false,
+    "ublock_path": "ublock_origin.crx"
 }
