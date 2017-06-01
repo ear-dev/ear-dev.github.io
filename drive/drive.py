@@ -54,7 +54,7 @@ except:
 USR_AGENT_OSX = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/%s Safari/537.36"
 USR_AGENT_WIN = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/%s Safari/537.36"
 USR_AGENT_LINUX = "??"
-WINDOWS_SPARROW_LOCATION = 'C:\\Users\\viasat\\AppData\\Local\\ViaSat\\Sparrow\\Application\\sparrow.exe'
+WINDOWS_SPARROW_LOCATION = 'C:\\Users\\%s\\AppData\\Local\\ViaSat\\Sparrow\\Application\\sparrow.exe'
 MAC_SPARROW_LOCATION = '/Applications/Sparrow.app/Contents/MacOS/Sparrow'
 
 class SparrowDriver(object):
@@ -100,10 +100,12 @@ class SparrowDriver(object):
     def get_command_line(self):
         parser = argparse.ArgumentParser()
         parser.add_argument('-c', '--config', required=True, help='path to the configuration directory, which contains json config')
+        parser.add_argument('-u', '--system_user', default='viasat', help='username associated with the user account on the laptop. Windows only.')
 
         args = parser.parse_args()
 
         self.json_config_file = args.config
+        self.username = args.system_user
 
     def json_config_parser(self, json_data):
         '''Parses the config.json file and sets attributes that will eventually be cmd switches and options passed to selenium'''
@@ -144,12 +146,17 @@ class SparrowDriver(object):
             self.chromium_version = out.strip().split()[1]
             self.user_agent = USR_AGENT_OSX % self.chromium_version
 
-        elif 'win' in sys.platform:
+        elif 'win' in sys.platform.lower():
             self.binary_location = json_data.get('sparrow_location_windows',
-                WINDOWS_SPARROW_LOCATION)
-            
-            cmd = ['wmic', 'datafile', 'where', r'name="%s"' % self.binary_location.replace('\\', '\\\\'), 'get', 'Version']
-            p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                WINDOWS_SPARROW_LOCATION % self.username)
+
+            if 'cygwin' in sys.platform.lower():
+                cmd = ['wmic', 'datafile', 'where', r'name="%s"' % self.binary_location.replace('\\', '\\\\'), 'get', 'Version']
+                p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            else:
+                cmd = r'wmic datafile where name="%s" get Version' % self.binary_location
+                p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
             if p is None:
                 logging.info("Unable to open Sparrow at : %s" % self.binary_location)
                 sys.exit(1)
@@ -362,6 +369,7 @@ class SparrowDriver(object):
                 logging.info("Removing user data dir: %s " % user_data)
                 shutil.rmtree(user_data, ignore_errors=True)
 
+                logging.info("Starting cold cache run with %s now" % mode)
                 self.visit_sites(chromiumlike_mode, "cold")
 
                 if self.alternate_sparrow_chromium:
