@@ -154,7 +154,7 @@ class SparrowDriver(object):
                 cmd = ['wmic', 'datafile', 'where', r'name="%s"' % self.binary_location.replace('\\', '\\\\'), 'get', 'Version']
                 p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             else:
-                cmd = r'wmic datafile where name="%s" get Version' % self.binary_location
+                cmd = r'wmic datafile where name="%s" get Version' % self.binary_location.replace('\\', '\\\\')
                 p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
             if p is None:
@@ -363,11 +363,12 @@ class SparrowDriver(object):
         clear_cache = True
         chromiumlike_mode = False
         mode = 'sparrow'
+        cache_dir = '/Default/Cache'
         while True:
             if clear_cache:
                 user_data = self.chromiumlike_user_data_dir if chromiumlike_mode else self.sparrow_user_data_dir
                 logging.info("Removing user data dir: %s " % user_data)
-                shutil.rmtree(user_data, ignore_errors=True)
+                shutil.rmtree(os.path.join(user_data, cache_dir), ignore_errors=True)
 
                 logging.info("Starting cold cache run with %s now" % mode)
                 self.visit_sites(chromiumlike_mode, "cold")
@@ -378,7 +379,7 @@ class SparrowDriver(object):
 
                     user_data = self.chromiumlike_user_data_dir if chromiumlike_mode else self.sparrow_user_data_dir
                     logging.info("Removing user data dir: %s now" % user_data)
-                    shutil.rmtree(user_data, ignore_errors=True)
+                    shutil.rmtree(os.path.join(user_data, cache_dir), ignore_errors=True)
 
                     logging.info("Starting cold cache run with %s now" % mode)
                     self.visit_sites(chromiumlike_mode, "cold")

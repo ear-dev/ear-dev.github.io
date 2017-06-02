@@ -279,10 +279,11 @@ def load_on_hover(url, remote, speed_value=None):
     hyperlink = HYPERLINK_TEMPLATE_URL + '?speed_test=%s' % speed_value  if speed_value else HYPERLINK_TEMPLATE_URL
 
     remote.get(hyperlink)
+    click_text = "Click Me Please"
     element = remote.find_element_by_id("put_hyperlink_here")
     remote.execute_script(
-      "arguments[0].innerHTML = '<a href=\"" + url + "\">" + url + "</a>';", element)
-    link_element = remote.find_element_by_link_text(url)
+      "arguments[0].innerHTML = '<a href=\"" + url + "\">" + click_text + "</a>';", element)
+    link_element = remote.find_element_by_link_text(click_text)
     actions = ActionChains(remote)
     actions.move_to_element(link_element)
     actions.perform()
