@@ -363,12 +363,17 @@ class SparrowDriver(object):
         clear_cache = True
         chromiumlike_mode = False
         mode = 'sparrow'
+
+        cache_files_dir = '/Default'
         cache_dir = '/Default/Cache'
+        clear_cache_files = ['Cookies', 'Cookies-journal', 'History', 'History-journal']
+
         while True:
             if clear_cache:
                 user_data = self.chromiumlike_user_data_dir if chromiumlike_mode else self.sparrow_user_data_dir
-                logging.info("Removing user data dir: %s " % user_data)
-                shutil.rmtree(os.path.join(user_data, cache_dir), ignore_errors=True)
+                self.clear_cache(cache_directory=os.path.join(user_data, cache_dir), 
+                                 cache_files_directory=os.path.join(user_data, cache_files_dir), 
+                                 files_list=clear_cache_files)
 
                 logging.info("Starting cold cache run with %s now" % mode)
                 self.visit_sites(chromiumlike_mode, "cold")
@@ -378,8 +383,9 @@ class SparrowDriver(object):
                     mode = "chromiumlike" if chromiumlike_mode else "sparrow"
 
                     user_data = self.chromiumlike_user_data_dir if chromiumlike_mode else self.sparrow_user_data_dir
-                    logging.info("Removing user data dir: %s now" % user_data)
-                    shutil.rmtree(os.path.join(user_data, cache_dir), ignore_errors=True)
+                    self.clear_cache(cache_directory=os.path.join(user_data, cache_dir), 
+                                     cache_files_directory=os.path.join(user_data, cache_files_dir), 
+                                     files_list=clear_cache_files)
 
                     logging.info("Starting cold cache run with %s now" % mode)
                     self.visit_sites(chromiumlike_mode, "cold")
@@ -420,6 +426,17 @@ class SparrowDriver(object):
                     message_str = "Failed to load remote config at %s." % self.remote_config_file
                     logging.info(message_str)
 
+    def clear_cache(self, cache_directory, cache_files_directory=None, files_list=[]):
+
+        logging.info("Removing cache directory %s now.." % cache_directory)
+        shutil.rmtree(cache_directory, ignore_errors=True)
+
+        if files_list:
+            logging.info("Removing cache files %s from %s now.." % (str(files_list), cache_files_directory))
+            for fl in files_list:
+                fl_path = os.path.join(cache_files_directory, fl)
+                if os.path.isfile(fl_path):
+                    os.remove(fl)
 
     def clean_chromedriver_process(self):
         '''
