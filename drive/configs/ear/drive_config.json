@@ -7,7 +7,7 @@
     "alternate_warm_cold_cache": true,
     "poll_download_speed": false,
     "test_label_prefix": "test_mv_ublock",
-    "sparrow_only_switches": ["--sparrow-enable-experimental=onhover-preconnect-subresources"],
+    "sparrow_only_switches": [],
     "common_switches": [
         "--enable-crash-upload",
         "--request-beer-ack",
