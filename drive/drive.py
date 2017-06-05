@@ -189,8 +189,8 @@ class SparrowDriver(object):
         self.alternate_warm_cold_cache = json_data.get('alternate_warm_cold_cache', False)
 
         if self.alternate_sparrow_chromium:
-            self.chromiumlike_user_data_dir = os.path.dirname(os.path.realpath(__file__)) + '/chromiumlike_user_data'
-        self.sparrow_user_data_dir = os.path.dirname(os.path.realpath(__file__)) + '/sparrow_user_data'
+            self.chromiumlike_user_data_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'chromiumlike_user_data')
+        self.sparrow_user_data_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'sparrow_user_data')
 
         self.save_screenshots = json_data.get('save_screenshots', False)
         self.ublock_path = json_data.get('ublock_path')
@@ -224,7 +224,7 @@ class SparrowDriver(object):
             if not os.path.exists(self.ublock_path):
                 print("Error, ublock crx file not found.")
                 sys.exit(1)
-                
+
             driver_options.add_extension(self.ublock_path)
 
         # Test label
@@ -364,16 +364,15 @@ class SparrowDriver(object):
         chromiumlike_mode = False
         mode = 'sparrow'
 
-        cache_files_dir = '/Default'
-        cache_dir = '/Default/Cache'
-        clear_cache_files = ['Cookies', 'Cookies-journal', 'History', 'History-journal']
-
+        browsing_data_dir = 'Default'
+        cache_dir = 'Cache'
+        cache_files = ['Cookies', 'Cookies-journal', 'History', 'History-journal']
         while True:
             if clear_cache:
                 user_data = self.chromiumlike_user_data_dir if chromiumlike_mode else self.sparrow_user_data_dir
-                self.clear_cache(cache_directory=os.path.join(user_data, cache_dir), 
-                                 cache_files_directory=os.path.join(user_data, cache_files_dir), 
-                                 files_list=clear_cache_files)
+                self.clear_cache(cache_directory=os.path.join(user_data, browsing_data_dir, cache_dir),
+                                 browsing_data_directory=os.path.join(user_data, browsing_data_dir),
+                                 files_list=cache_files)
 
                 logging.info("Starting cold cache run with %s now" % mode)
                 self.visit_sites(chromiumlike_mode, "cold")
@@ -383,9 +382,9 @@ class SparrowDriver(object):
                     mode = "chromiumlike" if chromiumlike_mode else "sparrow"
 
                     user_data = self.chromiumlike_user_data_dir if chromiumlike_mode else self.sparrow_user_data_dir
-                    self.clear_cache(cache_directory=os.path.join(user_data, cache_dir), 
-                                     cache_files_directory=os.path.join(user_data, cache_files_dir), 
-                                     files_list=clear_cache_files)
+                    self.clear_cache(cache_directory=os.path.join(user_data, cache_dir),
+                                     browsing_data_directory=os.path.join(user_data, browsing_data_dir),
+                                     files_list=cache_files)
 
                     logging.info("Starting cold cache run with %s now" % mode)
                     self.visit_sites(chromiumlike_mode, "cold")
@@ -426,17 +425,18 @@ class SparrowDriver(object):
                     message_str = "Failed to load remote config at %s." % self.remote_config_file
                     logging.info(message_str)
 
-    def clear_cache(self, cache_directory, cache_files_directory=None, files_list=[]):
+    def clear_cache(self, cache_directory, browsing_data_directory=None, files_list=[]):
 
         logging.info("Removing cache directory %s now.." % cache_directory)
         shutil.rmtree(cache_directory, ignore_errors=True)
 
-        if files_list:
-            logging.info("Removing cache files %s from %s now.." % (str(files_list), cache_files_directory))
+        if files_list and browsing_data_directory:
+            logging.info("Removing cache files %s from %s now.." % (str(files_list), browsing_data_directory))
             for fl in files_list:
-                fl_path = os.path.join(cache_files_directory, fl)
+                fl_path = os.path.join(browsing_data_directory, fl)
                 if os.path.isfile(fl_path):
-                    os.remove(fl)
+                    logging.info("Removing file %s now.." % fl_path)
+                    os.remove(fl_path)
 
     def clean_chromedriver_process(self):
         '''

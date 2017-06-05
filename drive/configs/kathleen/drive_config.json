@@ -1,0 +1,18 @@
+{
+    "sitelist_file": "http://bizzbyster.github.io/sitelists/top_sites_edited.txt",
+    "log_file": "drive_log",
+    "log_to_console": true,
+    "log_level": "info",
+    "alternate_sparrow_chromiumlike": true,
+    "alternate_warm_cold_cache": true,
+    "poll_download_speed": false,
+    "test_label_prefix": "kathleen_home",
+    "sparrow_only_switches": [
+        "--sparrow-enable-experimental=hover-root-prefetch"
+        ],
+    "common_switches": [
+        "--request-beer-ack",
+        "--hinting-scope=test-home-tester"
+        ],
+    "save_screenshots": false
+}
