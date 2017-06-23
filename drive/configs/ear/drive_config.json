@@ -7,11 +7,11 @@
     "alternate_warm_cold_cache": true,
     "poll_download_speed": false,
     "test_label_prefix": "test_mv_ublock",
-    "sparrow_only_switches": ["--sparrow-enable-experimental=hover-root-prefetch"],
+    "sparrow_only_switches": [],
     "common_switches": [
         "--enable-crash-upload",
         "--request-beer-ack",
-        "--omaha-server-url=https://omaha.prod.ihs.viasat.io",
+        "--omaha-server-url=https://omaha.overnight.ihs.viasat.io",
         "--blackbox-on-beer",
         "--hinting-scope=test-mv-ublock"
         ],
