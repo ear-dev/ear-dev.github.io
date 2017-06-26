@@ -11,8 +11,6 @@
     "common_switches": [
         "--enable-crash-upload",
         "--request-beer-ack",
-        "--omaha-server-url=https://omaha.overnight.ihs.viasat.io",
-        "--blackbox-on-beer",
         "--hinting-scope=test-mv-ublock"
         ],
     "save_screenshots": false,
