@@ -9,7 +9,6 @@
     "test_label_prefix": "test_mv_ublock",
     "sparrow_only_switches": [],
     "common_switches": [
-        "--enable-crash-upload",
         "--request-beer-ack",
         "--hinting-scope=test-mv-ublock"
         ],
