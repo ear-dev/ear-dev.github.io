@@ -6,8 +6,8 @@
     "alternate_sparrow_chromiumlike": true,
     "alternate_warm_cold_cache": true,
     "poll_download_speed": false,
-    "test_label_prefix": "mv_no_cookie_defer_any",
-    "sparrow_only_switches": ["--sparrow-enable-experimental=do-not-cookiedefer-any"],
+    "test_label_prefix": "mv_baseline_no_switches",
+    "sparrow_only_switches": [],
     "common_switches": [
         "--request-beer-ack",
         "--hinting-scope=test-mv-ublock"
