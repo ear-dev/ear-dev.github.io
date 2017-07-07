@@ -6,8 +6,8 @@
     "alternate_sparrow_chromiumlike": true,
     "alternate_warm_cold_cache": true,
     "poll_download_speed": false,
-    "test_label_prefix": "mv_baseline_no_switches",
-    "sparrow_only_switches": [],
+    "test_label_prefix": "mv_disable_breadcrumb_collection",
+    "sparrow_only_switches": ["--sparrow-disable=breadcrumbs-collection"],
     "common_switches": [
         "--request-beer-ack",
         "--hinting-scope=test-mv-ublock"
