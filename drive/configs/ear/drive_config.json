@@ -6,8 +6,8 @@
     "alternate_sparrow_chromiumlike": true,
     "alternate_warm_cold_cache": true,
     "poll_download_speed": false,
-    "test_label_prefix": "mv_disable_onhover_preconnect",
-    "sparrow_only_switches": ["--sparrow-disable=onhover-preconnect"],
+    "test_label_prefix": "mv_disable_onhover_preconnect_subresources",
+    "sparrow_only_switches": ["--sparrow-disable=onhover-preconnect-subresources"],
     "common_switches": [
         "--request-beer-ack",
         "--hinting-scope=test-mv-ublock"
