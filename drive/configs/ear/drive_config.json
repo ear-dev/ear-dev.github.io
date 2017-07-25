@@ -6,13 +6,10 @@
     "alternate_sparrow_chromiumlike": true,
     "alternate_warm_cold_cache": true,
     "poll_download_speed": false,
-    "test_label_prefix": "test_mv_ublock",
-    "sparrow_only_switches": ["--sparrow-enable-experimental=hover-root-prefetch"],
+    "test_label_prefix": "mv_disable_onhover_preconnect_subresources",
+    "sparrow_only_switches": ["--sparrow-disable=onhover-preconnect-subresources"],
     "common_switches": [
-        "--enable-crash-upload",
         "--request-beer-ack",
-        "--omaha-server-url=https://omaha.prod.ihs.viasat.io",
-        "--blackbox-on-beer",
         "--hinting-scope=test-mv-ublock"
         ],
     "save_screenshots": false,
