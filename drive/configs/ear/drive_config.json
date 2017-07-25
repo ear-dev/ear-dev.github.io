@@ -6,12 +6,12 @@
     "alternate_sparrow_chromiumlike": true,
     "alternate_warm_cold_cache": true,
     "poll_download_speed": false,
-    "test_label_prefix": "mv_disable_onhover_preconnect_subresources",
-    "sparrow_only_switches": ["--sparrow-disable=onhover-preconnect-subresources"],
+    "test_label_prefix": "mv_no_ublock_baseline",
+    "sparrow_only_switches": [],
     "common_switches": [
         "--request-beer-ack",
         "--hinting-scope=test-mv-ublock"
         ],
     "save_screenshots": false,
-    "ublock_path": "ublock_origin.crx"
+    "ublock_path": ""
 }
