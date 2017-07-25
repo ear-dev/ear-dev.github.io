@@ -40,6 +40,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 import argparse
 import logging
 import json
+import random
 import subprocess
 
 try:
@@ -164,6 +165,8 @@ class SparrowDriver(object):
             self.chromium_version = out.split()[1]
             self.user_agent = USR_AGENT_WIN % self.chromium_version
 
+
+        self.percent_clicks_on_hover = json_data.get('percent_clicks_on_hover', 100)
         self.sitelist_file = json_data.get('sitelist_file')
         if self.sitelist_file.lower().startswith('http'):
             self.sitelist = urllib2.urlopen(self.sitelist_file).read().split("\n")
@@ -186,14 +189,23 @@ class SparrowDriver(object):
         self.common_switches = json_data.get('common_switches', '')
 
         self.alternate_sparrow_chromium = json_data.get('alternate_sparrow_chromiumlike', False)
+        self.chromiumlike_only = json_data.get('chromiumlike_only', False)
         self.alternate_warm_cold_cache = json_data.get('alternate_warm_cold_cache', False)
 
-        if self.alternate_sparrow_chromium:
+        if self.alternate_sparrow_chromium  or self.chromiumlike_only:
             self.chromiumlike_user_data_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'chromiumlike_user_data')
         self.sparrow_user_data_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'sparrow_user_data')
 
+        if 'cygwin' in sys.platform.lower():
+            if self.alternate_sparrow_chromium or self.chromiumlike_only:
+                self.chromiumlike_user_data_dir = self.cyg_to_win_path(self.chromiumlike_user_data_dir)
+            self.sparrow_user_data_dir = self.cyg_to_win_path(self.sparrow_user_data_dir)
+
         self.save_screenshots = json_data.get('save_screenshots', False)
         self.ublock_path = json_data.get('ublock_path')
+
+    def cyg_to_win_path(self, path):
+        return path.replace('/cygdrive/c/', 'C:\\').replace('/', '\\')
 
     def add_options(self, chromiumlike, cache_state):
         ''' Sets a bunch of cmd switches and options passed to selenium'''
@@ -272,7 +284,10 @@ class SparrowDriver(object):
                     continue
 
                 else:
-                    selenium_methods.load_on_hover(site, remote, speed_value=self.download_speed)
+                    if random.randrange(100) < self.percent_clicks_on_hover:
+                        selenium_methods.load_on_hover(site, remote, speed_value=self.download_speed)
+                    else:
+                        selenium_methods.load_url(site, remote)
 
                 try:
                     title = remote.find_element_by_tag_name('title').get_property('text')
@@ -344,6 +359,9 @@ class SparrowDriver(object):
             logging.info('\'%s\', stats: %s' % (title, str(self.stats)))
 
             if trys == num_tries:
+                if 'no beerAck' not in self.stats:
+                    self.stats['no beerAck'] = 0
+                self.stats['no beerAck'] += 1
                 print("No beer ack recieved for %s" % site)
 
         remote.quit()
@@ -361,8 +379,8 @@ class SparrowDriver(object):
         # Loop forever togging between sparrow and chromiumlike modes if alternate_sparrow_chromium = True
         # Alternate cold and warm cache between runs through the list
         clear_cache = True
-        chromiumlike_mode = False
-        mode = 'sparrow'
+        chromiumlike_mode = True if self.chromiumlike_only else False
+        mode = 'chromiumlike' if self.chromiumlike_only else 'sparrow'
 
         browsing_data_dir = 'Default'
         cache_dir = 'Cache'
@@ -382,7 +400,7 @@ class SparrowDriver(object):
                     mode = "chromiumlike" if chromiumlike_mode else "sparrow"
 
                     user_data = self.chromiumlike_user_data_dir if chromiumlike_mode else self.sparrow_user_data_dir
-                    self.clear_cache(cache_directory=os.path.join(user_data, cache_dir),
+                    self.clear_cache(cache_directory=os.path.join(user_data, browsing_data_dir, cache_dir),
                                      browsing_data_directory=os.path.join(user_data, browsing_data_dir),
                                      files_list=cache_files)
 
@@ -416,9 +434,14 @@ class SparrowDriver(object):
                     logging.info(json_data)
                     # Set new config values to be run till next iteration
                     self.json_config_parser(json_data)
-                    if not self.alternate_sparrow_chromium:
+                    
+                    if self.chromiumlike_only:
+                        chromiumlike_mode = True
+                        mode = "chromiumlike"
+                    elif not self.alternate_sparrow_chromium:
                         chromiumlike_mode = False
                         mode = "sparrow"
+
                     if not self.alternate_warm_cold_cache:
                         clear_cache = False
                 except:
@@ -427,6 +450,10 @@ class SparrowDriver(object):
 
     def clear_cache(self, cache_directory, browsing_data_directory=None, files_list=[]):
 
+        if 'cygwin' in sys.platform.lower():
+            cache_directory = self.cyg_to_win_path(cache_directory)
+            browsing_data_directory = self.cyg_to_win_path(browsing_data_directory)
+
         logging.info("Removing cache directory %s now.." % cache_directory)
         shutil.rmtree(cache_directory, ignore_errors=True)
 
@@ -434,6 +461,9 @@ class SparrowDriver(object):
             logging.info("Removing cache files %s from %s now.." % (str(files_list), browsing_data_directory))
             for fl in files_list:
                 fl_path = os.path.join(browsing_data_directory, fl)
+                if 'cygwin' in sys.platform.lower():
+                    fl_path = self.cyg_to_win_path(fl_path)
+
                 if os.path.isfile(fl_path):
                     logging.info("Removing file %s now.." % fl_path)
                     os.remove(fl_path)
