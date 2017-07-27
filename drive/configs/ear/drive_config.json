@@ -4,6 +4,7 @@
     "log_to_console": true,
     "log_level": "info",
     "alternate_sparrow_chromiumlike": true,
+    "percent_clicks_on_hover": 90
     "alternate_warm_cold_cache": true,
     "poll_download_speed": false,
     "test_label_prefix": "mv_early_navigation_experimental",
